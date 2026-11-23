@@ -58,6 +58,7 @@ const RepositoryDetails = () => {
     fetchIssues();
 
     let socket;
+    let joinRepositoryRoom;
     const refreshOnIssueChange = () => {
       fetchIssues();
       fetchRepository();
@@ -68,9 +69,9 @@ const RepositoryDetails = () => {
         if (!active) return;
         socket = connectedSocket;
 
-        const joinRoom = () => socket.emit("joinRepository", id);
-        socket.on("connect", joinRoom);
-        if (socket.connected) joinRoom();
+        joinRepositoryRoom = () => socket.emit("joinRepository", id);
+        socket.on("connect", joinRepositoryRoom);
+        if (socket.connected) joinRepositoryRoom();
 
         socket.on("issue:created", refreshOnIssueChange);
         socket.on("issue:updated", refreshOnIssueChange);
@@ -81,7 +82,7 @@ const RepositoryDetails = () => {
     return () => {
       active = false;
       if (socket) {
-        socket.off("connect");
+        if (joinRepositoryRoom) socket.off("connect", joinRepositoryRoom);
         socket.off("issue:created", refreshOnIssueChange);
         socket.off("issue:updated", refreshOnIssueChange);
         socket.off("issue:deleted", refreshOnIssueChange);
