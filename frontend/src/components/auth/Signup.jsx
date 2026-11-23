@@ -6,6 +6,7 @@ import { Box, Button } from "@primer/react";
 import { PageHeader } from "@primer/react/drafts";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
+import API_URL from "../../config";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
