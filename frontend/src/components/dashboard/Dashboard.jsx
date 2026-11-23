@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ const Dashboard = () => {
     const fetchSuggestedRepositories = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_API_URL}/repo/all`,
+          `${API_URL}/repo/all`,
         );
 
         if (!response.ok) {
