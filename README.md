@@ -1,16 +1,19 @@
 # GitHub Clone 🚀
 
+🚀 **Live Demo:** [GitHub Clone – Live Website](https://main.d2662q1yw4bw2h.amplifyapp.com/)
 A full-stack GitHub-inspired web application built using React.js, Node.js, Express.js, and MongoDB. This project allows developers to create and manage repositories, explore projects, interact with other developers, and manage their profiles.
 
 ## 🌟 Features
 
 ### 🔐 Authentication
+
 - User Registration and Login
 - JWT-based Authentication
 - Password Hashing using bcrypt
 - User Session Management
 
 ### 📁 Repository Management
+
 - Create New Repositories
 - Public and Private Repository Visibility
 - View Repository Details
@@ -20,17 +23,20 @@ A full-stack GitHub-inspired web application built using React.js, Node.js, Expr
 - Initialize Repository with README
 
 ### 👥 User Management
+
 - User Profiles
 - Update Profile Information
 - Follow and Unfollow Developers
 - Followers and Following Statistics
 
 ### ⭐ Repository Interaction
+
 - Star and Unstar Repositories
 - View Starred Repositories
 - Explore Suggested Repositories
 
 ### 🛠️ Custom Repository CLI
+
 - Initialize a Local Repository
 - Add Files to Staging Area
 - Commit Files with Messages
@@ -43,6 +49,7 @@ A full-stack GitHub-inspired web application built using React.js, Node.js, Expr
 ## 💻 Tech Stack
 
 ### Frontend
+
 - React.js
 - JavaScript
 - CSS3
@@ -53,6 +60,7 @@ A full-stack GitHub-inspired web application built using React.js, Node.js, Expr
 - React Heat Map
 
 ### Backend
+
 - Node.js
 - Express.js
 - MongoDB
@@ -65,6 +73,7 @@ A full-stack GitHub-inspired web application built using React.js, Node.js, Expr
 - Yargs
 
 ### Tools
+
 - Visual Studio Code
 - Git
 - GitHub
@@ -160,15 +169,15 @@ S3_BUCKET=your_bucket_name
 
 **Environment Variables:**
 
-| Variable | Purpose |
-|---|---|
-| PORT | Backend server port |
-| MONGODB_URL | MongoDB connection URL |
-| JWT_SECRET_KEY | JWT signing secret |
-| AWS_ACCESS_KEY_ID | AWS access key |
-| AWS_SECRET_ACCESS_KEY | AWS secret key |
-| AWS_REGION | AWS region |
-| S3_BUCKET | Bucket name used by repository initialization |
+| Variable              | Purpose                                       |
+| --------------------- | --------------------------------------------- |
+| PORT                  | Backend server port                           |
+| MONGODB_URL           | MongoDB connection URL                        |
+| JWT_SECRET_KEY        | JWT signing secret                            |
+| AWS_ACCESS_KEY_ID     | AWS access key                                |
+| AWS_SECRET_ACCESS_KEY | AWS secret key                                |
+| AWS_REGION            | AWS region                                    |
+| S3_BUCKET             | Bucket name used by repository initialization |
 
 AWS credentials are needed for the custom S3 push/pull functionality.
 
@@ -300,42 +309,42 @@ http://localhost:3000
 
 ### User Routes
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/signup` | Register a new user |
-| POST | `/login` | Login user |
-| GET | `/allUsers` | Get all users |
-| GET | `/userProfile/:id` | Get user profile |
-| PUT | `/updateProfile/:id` | Update user profile |
-| DELETE | `/deleteProfile/:id` | Delete user profile |
-| POST | `/follow/:id` | Follow a user |
-| DELETE | `/unfollow/:id` | Unfollow a user |
-| GET | `/followStats/:id` | Get follower statistics |
+| Method | Endpoint             | Description             |
+| ------ | -------------------- | ----------------------- |
+| POST   | `/signup`            | Register a new user     |
+| POST   | `/login`             | Login user              |
+| GET    | `/allUsers`          | Get all users           |
+| GET    | `/userProfile/:id`   | Get user profile        |
+| PUT    | `/updateProfile/:id` | Update user profile     |
+| DELETE | `/deleteProfile/:id` | Delete user profile     |
+| POST   | `/follow/:id`        | Follow a user           |
+| DELETE | `/unfollow/:id`      | Unfollow a user         |
+| GET    | `/followStats/:id`   | Get follower statistics |
 
 ### Repository Routes
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/repo/create` | Create a repository |
-| GET | `/repo/all` | Get all repositories |
-| GET | `/repo/:id` | Get repository by ID |
-| GET | `/repo/name/:name` | Find repository by name |
-| GET | `/repo/user/:userID` | Get user's repositories |
-| PUT | `/repo/update/:id` | Update repository |
-| DELETE | `/repo/delete/:id` | Delete repository |
-| PATCH | `/repo/toggle/:id` | Toggle repository visibility |
-| POST | `/repo/star/:id` | Star or unstar repository |
-| GET | `/repo/starred/:userId` | Get starred repositories |
+| Method | Endpoint                | Description                  |
+| ------ | ----------------------- | ---------------------------- |
+| POST   | `/repo/create`          | Create a repository          |
+| GET    | `/repo/all`             | Get all repositories         |
+| GET    | `/repo/:id`             | Get repository by ID         |
+| GET    | `/repo/name/:name`      | Find repository by name      |
+| GET    | `/repo/user/:userID`    | Get user's repositories      |
+| PUT    | `/repo/update/:id`      | Update repository            |
+| DELETE | `/repo/delete/:id`      | Delete repository            |
+| PATCH  | `/repo/toggle/:id`      | Toggle repository visibility |
+| POST   | `/repo/star/:id`        | Star or unstar repository    |
+| GET    | `/repo/starred/:userId` | Get starred repositories     |
 
 ### Issue Routes
 
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/issue/create` | Create an issue |
-| PUT | `/issue/update/:id` | Update an issue |
+| Method | Endpoint            | Description     |
+| ------ | ------------------- | --------------- |
+| POST   | `/issue/create`     | Create an issue |
+| PUT    | `/issue/update/:id` | Update an issue |
 | DELETE | `/issue/delete/:id` | Delete an issue |
-| GET | `/issue/all` | Get all issues |
-| GET | `/issue/:id` | Get issue by ID |
+| GET    | `/issue/all`        | Get all issues  |
+| GET    | `/issue/:id`        | Get issue by ID |
 
 ---
 
@@ -371,4 +380,3 @@ It demonstrates frontend development, REST API integration, authentication, data
 ---
 
 ⭐ If you like this project, consider giving it a star!
-
