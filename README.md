@@ -1,6 +1,6 @@
 # GitHub Clone 🚀
 
-🚀 **Live Demo:** [GitHub Clone – Live Website](https://main.d2662q1yw4bw2h.amplifyapp.com/)
+🚀 **Live Demo:** [GitHub Clone – Live Website](https://main.d3r9pp5tp80rdm.amplifyapp.com/auth)
 A full-stack GitHub-inspired web application built using React.js, Node.js, Express.js, and MongoDB. This project allows developers to create and manage repositories, explore projects, interact with other developers, and manage their profiles.
 
 ## 🌟 Features
