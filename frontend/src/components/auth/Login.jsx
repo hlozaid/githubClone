@@ -12,10 +12,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const { setCurrentUser } = useAuth();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
 
     try {
       setLoading(true);
@@ -34,7 +36,12 @@ const Login = () => {
       window.location.href = "/";
     } catch (err) {
       console.error("Login error:", err);
-      alert(err.response?.data?.message || "Login failed!");
+      setError(
+        err.response?.data?.message ||
+        (err.code === "ERR_NETWORK"
+          ? "Cannot connect to server. Please try again shortly."
+          : "Login failed. Please check your details and try again.")
+      );
     } finally {
       setLoading(false);
     }
@@ -89,6 +96,8 @@ const Login = () => {
               required
             />
           </div>
+
+          {error && <p role="alert" style={{ color: "#cf222e" }}>{error}</p>}
 
           <Button
             variant="primary"
