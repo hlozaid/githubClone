@@ -40,6 +40,7 @@ async function startServer() {
   const app = express();
   const port = process.env.PORT || 3000;
   const allowedOrigins = [
+    "https://main.d3r9pp5tp80rdm.amplifyapp.com",
     "https://main.d2662q1yw4bw2h.amplifyapp.com",
     "http://localhost:5173",
   ];
