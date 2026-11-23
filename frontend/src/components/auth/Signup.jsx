@@ -13,31 +13,42 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const { setCurrentUser } = useAuth();
 
   const handleSignup = async (e) => {
     e.preventDefault();
+    setError("");
+
+    if (!username.trim() || !email.trim() || !password) {
+      setError("Please fill in all fields.");
+      return;
+    }
 
     try {
       setLoading(true);
       const res = await axios.post(`${API_URL}/signup`, {
-        email,
+        email: email.trim().toLowerCase(),
         password,
-        username,
+        username: username.trim(),
       });
 
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("userId", res.data.userId);
-      localStorage.setItem("username", username);
+      localStorage.setItem("username", username.trim());
 
       setCurrentUser(res.data.userId);
-      setLoading(false);
-
       window.location.href = "/";
     } catch (err) {
-      console.error(err);
-      alert("Signup Failed!");
+      console.error("Signup error:", err);
+      setError(
+        err.response?.data?.message ||
+        (err.code === "ERR_NETWORK"
+          ? "Cannot connect to server. Please try again shortly."
+          : "Signup failed. Please check your details and try again.")
+      );
+    } finally {
       setLoading(false);
     }
   };
@@ -59,55 +70,61 @@ const Signup = () => {
           </Box>
         </div>
 
-        <div className="login-box">
+        <form className="login-box" onSubmit={handleSignup}>
           <div>
-            <label className="label">Username</label>
+            <label className="label" htmlFor="Username">Username</label>
             <input
-              autoComplete="off"
+              autoComplete="username"
               name="Username"
               id="Username"
               className="input"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
 
           <div>
-            <label className="label">Email address</label>
+            <label className="label" htmlFor="Email">Email address</label>
             <input
-              autoComplete="off"
+              autoComplete="email"
               name="Email"
               id="Email"
               className="input"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
           <div className="div">
-            <label className="label">Password</label>
+            <label className="label" htmlFor="Password">Password</label>
             <input
-              autoComplete="off"
+              autoComplete="new-password"
               name="Password"
               id="Password"
               className="input"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+              minLength={6}
             />
           </div>
+
+          {error && <p role="alert" style={{ color: "#cf222e" }}>{error}</p>}
 
           <Button
             variant="primary"
             className="login-btn"
+            type="submit"
             disabled={loading}
-            onClick={handleSignup}
           >
-            {loading ? "Loading..." : "Signup"}
+            {loading ? "Creating account..." : "Signup"}
           </Button>
-        </div>
+        </form>
 
         <div className="pass-box">
           <p>
