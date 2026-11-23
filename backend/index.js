@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const http = require("http");
 const { Server } = require("socket.io");
+const jwt = require("jsonwebtoken");
 const mainRouter = require("./routes/main.router");
 const { setIO } = require("./socket");
 
@@ -62,15 +63,27 @@ async function startServer() {
 
   setIO(io);
 
+  io.use((socket, next) => {
+    const token = socket.handshake.auth && socket.handshake.auth.token;
+    if (!token || !process.env.JWT_SECRET_KEY) {
+      return next(new Error("Authentication required"));
+    }
+
+    try {
+      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      socket.data.userID = decoded.id.toString();
+      next();
+    } catch (error) {
+      next(new Error("Invalid or expired authentication token"));
+    }
+  });
+
   io.on("connection", (socket) => {
     console.log("Socket connected:", socket.id);
 
-    socket.on("joinRoom", (userID) => {
-      if (typeof userID !== "string" || !mongoose.Types.ObjectId.isValid(userID)) {
-        return;
-      }
-      socket.join("user:" + userID);
-      console.log("User notification room joined:", userID);
+    socket.on("joinRoom", () => {
+      socket.join("user:" + socket.data.userID);
+      console.log("User notification room joined:", socket.data.userID);
     });
 
     socket.on("joinRepository", async (repositoryID) => {
