@@ -6,7 +6,7 @@ import { Box, Button } from "@primer/react";
 import { PageHeader } from "@primer/react/drafts";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
-const API_URL = import.meta.env.production.VITE_API_URL;
+import API_URL from "../../config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
