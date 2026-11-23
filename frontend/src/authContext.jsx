@@ -15,23 +15,26 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     let cancelled = false;
+    let socket;
+    let handleConnect;
 
     if (!currentUser) return undefined;
 
     getSocket()
-      .then((socket) => {
+      .then((connectedSocket) => {
         if (cancelled) return;
+
+        socket = connectedSocket;
         socket.auth = { token: localStorage.getItem("token") || "" };
 
-        if (!socket.connected) socket.connect();
-
-        socket.off("connect", handleConnect);
-        function handleConnect() {
-          socket.emit("joinRoom");
-        }
-
+        handleConnect = () => socket.emit("joinRoom");
         socket.on("connect", handleConnect);
-        if (socket.connected) socket.emit("joinRoom");
+
+        if (!socket.connected) {
+          socket.connect();
+        } else {
+          handleConnect();
+        }
       })
       .catch((error) => {
         console.error("Socket connection failed:", error.message);
@@ -39,6 +42,10 @@ export const AuthProvider = ({ children }) => {
 
     return () => {
       cancelled = true;
+      if (socket) {
+        if (handleConnect) socket.off("connect", handleConnect);
+        socket.disconnect();
+      }
     };
   }, [currentUser]);
 
