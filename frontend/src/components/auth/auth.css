@@ -1,0 +1,172 @@
+
+/* Login Page */
+.login-wrapper {
+  min-height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0 16px 40px;
+  color: #e6edf3;
+  font-family: Arial, sans-serif;
+  background-color: #0d1117;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Remove unwanted outlines and borders */
+.login-wrapper,
+.login-wrapper * {
+  box-sizing: border-box;
+}
+
+/* Logo */
+.login-logo-container {
+  width: 100%;
+  padding: 38px 0 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+}
+
+.logo-login {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+/* Login Card Wrapper */
+.login-box-wrapper {
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Heading */
+.login-heading {
+  width: 100%;
+  text-align: center;
+  color: #e6edf3;
+}
+
+.login-heading * {
+  color: #e6edf3;
+}
+
+/* Login Form */
+.login-box {
+  width: 100%;
+  padding: 24px;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+
+/* Input Group */
+.login-box > div {
+  width: 100%;
+}
+
+/* Labels */
+.label {
+  display: block;
+  margin-bottom: 8px;
+  color: #e6edf3;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  height: 36px;
+  padding: 0 12px;
+  background-color: #0d1117;
+  color: #e6edf3;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input:hover {
+  border-color: #8b949e;
+}
+
+.input:focus {
+  border-color: #2f81f7;
+  box-shadow: 0 0 0 3px rgba(47, 129, 247, 0.2);
+}
+
+/* Login Button */
+.login-btn {
+  width: 100%;
+  min-height: 36px;
+  margin-top: 4px;
+  border-radius: 6px !important;
+}
+
+/* Signup Box */
+.pass-box {
+  width: 100%;
+  min-height: 60px;
+  padding: 16px;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #e6edf3;
+  font-size: 14px;
+}
+
+.pass-box p {
+  margin: 0;
+}
+
+.pass-box a,
+.signup,
+.passkey {
+  color: #4493f8;
+  text-decoration: none;
+}
+
+.pass-box a:hover {
+  text-decoration: underline;
+}
+
+/* Error */
+.login-error {
+  color: #f85149;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 480px) {
+  .login-logo-container {
+    padding-top: 30px;
+  }
+
+  .login-box-wrapper {
+    max-width: 100%;
+  }
+
+  .login-box {
+    padding: 20px;
+  }
+}

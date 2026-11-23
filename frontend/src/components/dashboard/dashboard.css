@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+}
+
+#dashboard {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 25px;
+}
+
+#dashboard aside {
+  flex: 1;
+  min-width: 0;
+  max-width: 280px;
+  padding: 15px;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+#dashboard main {
+  flex: 2;
+  min-width: 0;
+}
+
+#dashboard aside h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  overflow-wrap: anywhere;
+}
+
+#dashboard aside ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#dashboard aside ul li {
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+#search input {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px;
+  margin: 15px 0;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+}
+
+.repo-card {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 768px) {
+  #dashboard {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  #dashboard aside,
+  #dashboard main {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+.view-repo-btn {
+  background-color: #238636;
+  color: #ffffff;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s ease;
+}
+
+.view-repo-btn:hover {
+  background-color: #2ea043;
+}
+
+.view-repo-btn:active {
+  transform: scale(0.98);
+}
