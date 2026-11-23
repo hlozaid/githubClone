@@ -23,15 +23,35 @@ async function connectClient() {
 }
 
 async function signup(req, res) {
-  const { username, password, email } = req.body;
+  const username = typeof req.body.username === "string" ? req.body.username.trim() : "";
+  const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
+  const password = typeof req.body.password === "string" ? req.body.password : "";
+
   try {
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: "Username, email and password are required." });
+    }
+    if (password.length < 6) {
+      return res.status(400).json({ message: "Password must be at least 6 characters long." });
+    }
+    if (!process.env.JWT_SECRET_KEY) {
+      console.error("JWT_SECRET_KEY is missing from backend environment variables.");
+      return res.status(500).json({ message: "Server authentication is not configured. Please contact the administrator." });
+    }
+
     await connectClient();
     const db = client.db("githubclone");
     const usersCollection = db.collection("users");
 
-    const user = await usersCollection.findOne({ username });
-    if (user) {
-      return res.status(400).json({ message: "User already exists!" });
+    const existingUser = await usersCollection.findOne({
+      $or: [{ username }, { email }],
+    });
+    if (existingUser) {
+      return res.status(409).json({
+        message: existingUser.username === username
+          ? "Username is already taken."
+          : "An account with this email already exists.",
+      });
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -74,9 +94,18 @@ async function signup(req, res) {
 
 
 async function login(req, res) {
-  const { email, password } = req.body;
+  const email = typeof req.body.email === "string" ? req.body.email.trim().toLowerCase() : "";
+  const password = typeof req.body.password === "string" ? req.body.password : "";
 
   try {
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required." });
+    }
+    if (!process.env.JWT_SECRET_KEY) {
+      console.error("JWT_SECRET_KEY is missing from backend environment variables.");
+      return res.status(500).json({ message: "Server authentication is not configured. Please contact the administrator." });
+    }
+
     await connectClient();
 
     const db = client.db("githubclone");
