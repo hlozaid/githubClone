@@ -39,6 +39,7 @@ export async function getSocket() {
   const io = await loadSocketClient();
   socketInstance = io(API_URL, {
     autoConnect: false,
+    auth: { token: localStorage.getItem("token") || "" },
     withCredentials: true,
     reconnection: true,
     transports: ["websocket", "polling"],
