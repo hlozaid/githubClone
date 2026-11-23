@@ -5,7 +5,7 @@ import "./profile.css";
 import Navbar from "../Navbar";
 import { useAuth } from "../../authContext";
 import HeatMapProfile from "./HeatMap";
-const API_URL = import.meta.env.production.VITE_API_URL;
+import API_URL from "../../config";
 
 import {
   BookIcon,
