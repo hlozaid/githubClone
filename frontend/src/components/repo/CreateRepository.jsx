@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
@@ -43,7 +42,7 @@ const CreateRepository = () => {
 
     if (!/^[a-zA-Z0-9._-]+$/.test(cleanName)) {
       setError(
-        "Repository name can only contain letters, numbers, dots, hyphens and underscores."
+        "Repository name can only contain letters, numbers, dots, hyphens and underscores.",
       );
       return;
     }
@@ -56,7 +55,7 @@ const CreateRepository = () => {
         : "";
 
       const response = await fetch(
-        "http://localhost:3000/repo/create",
+        `${import.meta.env.VITE_API_URL}/repo/create`,
         {
           method: "POST",
           headers: {
@@ -70,23 +69,20 @@ const CreateRepository = () => {
             content: initialContent,
             issues: [],
           }),
-        }
+        },
       );
 
       const data = await response.json();
 
       if (!response.ok) {
         throw new Error(
-          data.error ||
-          data.message ||
-          "Unable to create repository."
+          data.error || data.message || "Unable to create repository.",
         );
       }
 
       alert("Repository created successfully!");
 
       navigate("/");
-
     } catch (err) {
       console.error("Create repository error:", err);
       setError(err.message);
@@ -100,7 +96,6 @@ const CreateRepository = () => {
       <Navbar />
 
       <div className="github-create-page">
-
         <div className="github-create-header">
           <button
             className="github-back-btn"
@@ -114,17 +109,12 @@ const CreateRepository = () => {
           <h1>Create a new repository</h1>
 
           <p>
-            A repository contains all project files, including
-            revision history. Already have a repository elsewhere?
-            You can import a repository.
+            A repository contains all project files, including revision history.
+            Already have a repository elsewhere? You can import a repository.
           </p>
         </div>
 
-        <form
-          className="github-create-form"
-          onSubmit={handleSubmit}
-        >
-
+        <form className="github-create-form" onSubmit={handleSubmit}>
           {/* OWNER */}
           <div className="github-form-group">
             <label>Owner</label>
@@ -156,16 +146,12 @@ const CreateRepository = () => {
               required
             />
 
-            <small>
-              Great repository names are short and memorable.
-            </small>
+            <small>Great repository names are short and memorable.</small>
           </div>
 
           {/* DESCRIPTION */}
           <div className="github-form-group">
-            <label htmlFor="repo-description">
-              Description
-            </label>
+            <label htmlFor="repo-description">Description</label>
 
             <textarea
               id="repo-description"
@@ -202,8 +188,8 @@ const CreateRepository = () => {
               <div className="github-option-content">
                 <strong>Public</strong>
                 <p>
-                  Anyone on the internet can see this repository.
-                  You choose who can contribute.
+                  Anyone on the internet can see this repository. You choose who
+                  can contribute.
                 </p>
               </div>
             </label>
@@ -222,9 +208,7 @@ const CreateRepository = () => {
 
               <div className="github-option-content">
                 <strong>Private</strong>
-                <p>
-                  You choose who can see and contribute to this repository.
-                </p>
+                <p>You choose who can see and contribute to this repository.</p>
               </div>
             </label>
           </div>
@@ -241,28 +225,20 @@ const CreateRepository = () => {
 
                 <div>
                   <strong>Add a README file</strong>
-                  <p>
-                    A README contains information about your project.
-                  </p>
+                  <p>A README contains information about your project.</p>
                 </div>
               </div>
 
               <input
                 type="checkbox"
                 checked={initializeReadme}
-                onChange={(e) =>
-                  setInitializeReadme(e.target.checked)
-                }
+                onChange={(e) => setInitializeReadme(e.target.checked)}
               />
             </label>
           </div>
 
           {/* ERROR */}
-          {error && (
-            <div className="github-create-error">
-              {error}
-            </div>
-          )}
+          {error && <div className="github-create-error">{error}</div>}
 
           {/* SUBMIT */}
           <div className="github-create-footer">
@@ -279,7 +255,6 @@ const CreateRepository = () => {
               {loading ? "Creating repository..." : "Create repository"}
             </button>
           </div>
-
         </form>
       </div>
     </>

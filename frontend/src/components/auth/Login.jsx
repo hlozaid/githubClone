@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import { useAuth } from "../../authContext";
@@ -7,6 +6,7 @@ import { Box, Button } from "@primer/react";
 import { PageHeader } from "@primer/react/drafts";
 import "./auth.css";
 import logo from "../../assets/github-mark-white.svg";
+const API_URL = import.meta.env.production.VITE_API_URL;
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -20,7 +20,7 @@ const Login = () => {
     try {
       setLoading(true);
 
-      const res = await axios.post("http://localhost:3000/login", {
+      const res = await axios.post(`${API_URL}/login`, {
         email,
         password,
       });

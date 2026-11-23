@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -6,6 +5,7 @@ import "./profile.css";
 import Navbar from "../Navbar";
 import { useAuth } from "../../authContext";
 import HeatMapProfile from "./HeatMap";
+const API_URL = import.meta.env.production.VITE_API_URL;
 
 import {
   BookIcon,
@@ -39,8 +39,9 @@ const Profile = () => {
 
       try {
         const [userResponse, repoResponse] = await Promise.all([
-          axios.get(`http://localhost:3000/userProfile/${userId}`),
-          axios.get(`http://localhost:3000/repo/user/${userId}`).catch((err) => {
+          axios.get(`${API_URL}/userProfile/${userId}`),
+
+          axios.get(`${API_URL}/repo/user/${userId}`).catch((err) => {
             if (err.response?.status === 404) {
               return { data: { repositories: [] } };
             }
@@ -85,8 +86,10 @@ const Profile = () => {
       if (sortBy === "name") {
         return (a.name || "").localeCompare(b.name || "");
       }
-      return new Date(b.updatedAt || b.createdAt || 0) -
-        new Date(a.updatedAt || a.createdAt || 0);
+      return (
+        new Date(b.updatedAt || b.createdAt || 0) -
+        new Date(a.updatedAt || a.createdAt || 0)
+      );
     });
 
   const username = userDetails.username || "username";
@@ -96,10 +99,8 @@ const Profile = () => {
       <Navbar />
 
       <div className="github-profile">
-
         {/* LEFT SIDEBAR */}
         <aside className="github-profile-sidebar">
-
           <div className="github-avatar">
             {userDetails.avatar ? (
               <img src={userDetails.avatar} alt="Profile" />
@@ -114,13 +115,9 @@ const Profile = () => {
             @{username.toLowerCase().replace(/\s/g, "")}
           </p>
 
-          <p className="github-bio">
-            {userDetails.bio || "No bio available."}
-          </p>
+          <p className="github-bio">{userDetails.bio || "No bio available."}</p>
 
-          <button className="github-edit-btn">
-            Edit profile
-          </button>
+          <button className="github-edit-btn">Edit profile</button>
 
           <div className="github-followers">
             <PeopleIcon size={16} />
@@ -130,22 +127,16 @@ const Profile = () => {
           </div>
 
           {userDetails.email && (
-            <p className="github-sidebar-detail">
-              ✉ {userDetails.email}
-            </p>
+            <p className="github-sidebar-detail">✉ {userDetails.email}</p>
           )}
 
-          <button
-            className="github-logout-btn"
-            onClick={handleLogout}
-          >
+          <button className="github-logout-btn" onClick={handleLogout}>
             Sign out
           </button>
         </aside>
 
         {/* RIGHT CONTENT */}
         <main className="github-profile-content">
-
           {/* PROFILE NAVIGATION */}
           <div className="github-profile-tabs">
             <button className="active">
@@ -186,17 +177,11 @@ const Profile = () => {
                   <div className="github-repo-card" key={repo._id}>
                     <div className="github-repo-name">
                       <RepoIcon size={16} />
-                      <a href={`/repo/${repo._id}`}>
-                        {repo.name}
-                      </a>
-                      <span>
-                        {repo.visibility ? "Public" : "Private"}
-                      </span>
+                      <a href={`/repo/${repo._id}`}>{repo.name}</a>
+                      <span>{repo.visibility ? "Public" : "Private"}</span>
                     </div>
 
-                    <p>
-                      {repo.description || "No description provided."}
-                    </p>
+                    <p>{repo.description || "No description provided."}</p>
 
                     <div className="github-repo-language">
                       <span className="language-dot"></span>
@@ -214,9 +199,7 @@ const Profile = () => {
 
           {/* CONTRIBUTION GRAPH */}
           <section className="github-contributions">
-            <h2>
-              {repositories.length} repositories
-            </h2>
+            <h2>{repositories.length} repositories</h2>
 
             <div className="github-heatmap">
               <HeatMapProfile />
@@ -225,7 +208,6 @@ const Profile = () => {
 
           {/* ALL REPOSITORIES */}
           <section className="github-all-repositories">
-
             <div className="github-section-heading">
               <h2>Repositories</h2>
 
@@ -236,7 +218,6 @@ const Profile = () => {
             </div>
 
             <div className="github-repo-filters">
-
               <div className="github-repo-search">
                 <SearchIcon size={16} />
 
@@ -271,41 +252,30 @@ const Profile = () => {
             ) : filteredRepositories.length > 0 ? (
               filteredRepositories.map((repo) => (
                 <div className="github-repository-row" key={repo._id}>
-
                   <div className="github-repository-info">
                     <div>
                       <RepoIcon size={16} />
-                      <a href={`/repo/${repo._id}`}>
-                        {repo.name}
-                      </a>
+                      <a href={`/repo/${repo._id}`}>{repo.name}</a>
 
                       <span className="github-visibility">
                         {repo.visibility ? "Public" : "Private"}
                       </span>
                     </div>
 
-                    <p>
-                      {repo.description || "No description provided."}
-                    </p>
+                    <p>{repo.description || "No description provided."}</p>
 
-                    <small>
-                      Updated recently
-                    </small>
+                    <small>Updated recently</small>
                   </div>
 
                   <button className="github-star-btn">
                     <StarIcon size={16} />
                     Star
                   </button>
-
                 </div>
               ))
             ) : (
-              <p className="github-empty">
-                No repositories found.
-              </p>
+              <p className="github-empty">No repositories found.</p>
             )}
-
           </section>
         </main>
       </div>

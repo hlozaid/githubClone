@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import "./dashboard.css";
 import Navbar from "../Navbar";
@@ -24,9 +23,7 @@ const Dashboard = () => {
 
     const fetchRepositories = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/repo/user/${userId}`
-        );
+        const response = await fetch(`${API_URL}/repo/user/${userId}`);
 
         if (!response.ok) {
           throw new Error("Failed to fetch your repositories");
@@ -42,7 +39,9 @@ const Dashboard = () => {
 
     const fetchSuggestedRepositories = async () => {
       try {
-        const response = await fetch("http://localhost:3000/repo/all");
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/repo/all`,
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch suggested repositories");
@@ -58,10 +57,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       setLoading(true);
 
-      await Promise.all([
-        fetchRepositories(),
-        fetchSuggestedRepositories(),
-      ]);
+      await Promise.all([fetchRepositories(), fetchSuggestedRepositories()]);
 
       setLoading(false);
     };
@@ -70,9 +66,7 @@ const Dashboard = () => {
   }, []);
 
   const searchResults = repositories.filter((repo) =>
-    (repo.name || "")
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase())
+    (repo.name || "").toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
   const handleViewRepository = (repositoryId) => {
@@ -84,7 +78,6 @@ const Dashboard = () => {
       <Navbar />
 
       <section id="dashboard">
-
         {/* Suggested Repositories */}
         <aside>
           <h3>Suggested Repositories</h3>

@@ -20,10 +20,10 @@ const Signup = () => {
 
     try {
       setLoading(true);
-      const res = await axios.post("http://localhost:3000/signup", {
-        email: email,
-        password: password,
-        username: username,
+      const res = await axios.post(`${API_URL}/signup`, {
+        email,
+        password,
+        username,
       });
 
       localStorage.setItem("token", res.data.token);
